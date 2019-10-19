@@ -1,6 +1,11 @@
 from PIL import Image
-class Pixel:
-    def __init__(self):
+
+class Square:
+    def __init__(self, image, dimension,width, height):
+        self.image = image
+        self.width = width
+        self.height = height
+        self.dimension = dimension
         self.total_red = 0
         self.total_green = 0
         self.total_blue = 0
@@ -10,6 +15,7 @@ class Pixel:
         self.total_green = 0
         self.total_blue = 0
         self.numberOfEntries = 0
+
     def incrementAvg(self,pixel):
         self.total_red += pixel[0]
         self.total_green += pixel[1]
@@ -23,39 +29,30 @@ class Pixel:
         return tuple(average)
 
 
-class Square:
-    def __init__(self, image, pixel, dimension,width, height):
-        self.image = image
-        self.pixel = pixel
-        self.width = width
-        self.height = height
-        self.dimension = dimension
-    
     def colorize (self):
         for w in range(self.dimension):
             for h in range (self.dimension):
-                self.pixel.incrementAvg(self.image[w+ self.width,h + self.height])
+                self.incrementAvg(self.image[w+ self.width,h + self.height])
 
         for w in range (self.dimension):
             for h in range (self.dimension):
-                self.image[w + self.width,h + self.height] = self.pixel.getAverage()
-
-    
+                self.image[w + self.width,h + self.height] = self.getAverage()
 
 
-pixel_size = 5
+
+pixel_size = 20
 
 im = Image.open("ass.jpg")
 width, height = im.size
 print("width:{} height:{}".format(width, height))
 image = im.load()
-pixel = Pixel()
+
 
 
 for w in range(0, width, pixel_size):
     for h in range(0, height, pixel_size):
-        Square(image, pixel, pixel_size, w, h ).colorize()
-        pixel.reset()
+        Square(image, pixel_size, w, h ).colorize()
+
 
 
 
