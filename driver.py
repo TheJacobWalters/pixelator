@@ -39,19 +39,27 @@ class Square:
                 self.image[w + self.width,h + self.height] = self.getAverage()
 
 
-
+class Image_process:
+    def __init__(self, image, width, height, pixel_size):
+        self.image = image
+        self.width = width
+        self.height = height
+        self. pixel_size = pixel_size
+        for w in range(0, self.width, self.pixel_size):
+            for h in range(0, self.height, self.pixel_size):
+                Square(self.image, self.pixel_size, w, h ).colorize()
+        
 pixel_size = 20
 
 im = Image.open("ass.jpg")
 width, height = im.size
 print("width:{} height:{}".format(width, height))
 image = im.load()
+Image_process(image, width, height, pixel_size)
 
 
 
-for w in range(0, width, pixel_size):
-    for h in range(0, height, pixel_size):
-        Square(image, pixel_size, w, h ).colorize()
+
 
 
 
