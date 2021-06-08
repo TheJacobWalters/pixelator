@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pillow = "==2.2.2"
+pillow = "==8.2.0"
 
 [requires]
 python_version = "3.7"
